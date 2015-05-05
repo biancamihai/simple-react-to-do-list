@@ -5,7 +5,7 @@ var react = require('gulp-react')
 gulp.task('transpile-js', function() {
   return gulp.src('./src/*.jsx')
     .pipe(react({harmony: true}))
-    .pipe(gulp.dest('./build'))
+    .pipe(gulp.dest('./js'))
 })
 
 // Watch Files For Changes
@@ -47,7 +47,7 @@ function bundle() {
         this.emit("end");
     })
     .pipe(source('bundle.js'))
-    .pipe(gulp.dest('./build'))
+    .pipe(gulp.dest('./js'))
     .pipe(browserSync.reload({stream: true, once: true}));
 }
 

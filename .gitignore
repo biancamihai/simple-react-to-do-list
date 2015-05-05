@@ -1,5 +1,5 @@
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-build
+js/.module-cache
 
 # Dependency directory
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
