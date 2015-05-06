@@ -4,6 +4,10 @@
 
 //var localStorageMixin = require('react-localstorage');
 
+// status == 0 -- pending task
+// status == 1 -- completed task
+// status == 2 -- archived task
+
 // TodoApp component
 var TodoApp = React.createClass({ displayName: "TodoApp",
 	// sync state with local storage
@@ -21,14 +25,14 @@ var TodoApp = React.createClass({ displayName: "TodoApp",
 		var allItems = this.state.items.concat([newItem]);
 		this.setState({ items: allItems });
 	},
-	// complete item
-	completeItem: function (pos) {
-		this.state.items[pos].completed = 1;
+	// complete/archive item - change his status
+	updateItem: function (pos, status) {
+		this.state.items[pos].status = status;
 		this.setState({ items: this.state.items });
 	},
 	// render the to do list
 	render: function () {
-		return React.createElement("div", null, React.createElement(TodoHeader, null), React.createElement(TodoList, { items: this.state.items, fnComplete: this.completeItem }), React.createElement(TodoForm, { onFormSubmit: this.updateItems }));
+		return React.createElement("div", null, React.createElement(TodoHeader, null), React.createElement(TodoList, { items: this.state.items, fnComplete: this.updateItem }), React.createElement(TodoForm, { onFormSubmit: this.updateItems }));
 	}
 });
 
@@ -45,9 +49,16 @@ var TodoList = React.createClass({ displayName: "TodoList",
 	// render the to do list
 	render: function () {
 		return React.createElement("ul", { className: "list-group" }, this.props.items.map(function (item, i) {
-			var buttonClass = "btn btn-primary btn-xs";
-			if (item.completed === 1) buttonClass = "btn btn-primary btn-xs hidden";
-			return React.createElement("li", { className: "list-group-item", key: i }, item.text, React.createElement("button", { type: "button", className: buttonClass, onClick: this.props.fnComplete.bind(null, i) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Complete"));
+			var classComplete = "btn btn-primary btn-xs",
+			    classArchive = "btn btn-primary btn-xs hidden",
+			    liClass = "list-group-item";
+			if (item.status === 1) {
+				classComplete = "btn btn-primary btn-xs hidden";
+				classArchive = "btn btn-primary btn-xs";
+			} else if (item.status === 2) {
+				liClass = "list-group-item hidden";
+			}
+			return React.createElement("li", { className: liClass, key: i }, item.text, React.createElement("button", { type: "button", className: classComplete, onClick: this.props.fnComplete.bind(null, i, 1) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Complete"), React.createElement("button", { type: "button", className: classArchive, onClick: this.props.fnComplete.bind(null, i, 2) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Archive"));
 		}, this));
 	}
 });
@@ -56,13 +67,13 @@ var TodoList = React.createClass({ displayName: "TodoList",
 var TodoForm = React.createClass({ displayName: "TodoForm",
 	// sync state with local storage
 	getInitialState: function () {
-		return { item: { text: "", completed: 0 } };
+		return { item: { text: "", status: 0 } };
 	},
 	// on submit send the item to the state and return to the initial state with focus on the field
 	handleSubmit: function (e) {
 		e.preventDefault();
-		this.props.onFormSubmit({ text: this.state.item, completed: 0 });
-		this.setState({ item: { text: "", completed: 0 } });
+		this.props.onFormSubmit({ text: this.state.item, status: 0 });
+		this.setState({ item: { text: "", status: 0 } });
 		React.findDOMNode(this.refs.item).focus();
 		return;
 	},
