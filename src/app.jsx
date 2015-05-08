@@ -29,12 +29,23 @@ var TodoApp = React.createClass({
 		this.state.items[pos].status = status;
 		this.setState({items: this.state.items});
 	},
+	// delete - deletes am item from the list
+	deleteItem: function(pos) {
+		var allItems = this.state.items;
+		allItems.splice(pos,1);
+		this.setState({items: allItems});
+	},
+	// deleteBulk: function(arr){
+	// 	arr.forEach(function(item){
+	// 		this.deleteItem(item);
+	// 	});
+	// },
 	// render the to do list
 	render: function(){
 		return (
 			<div>
 				<TodoHeader/>
-				<TodoList items={this.state.items} fnComplete={this.updateItem}/>
+				<TodoList items={this.state.items} fnComplete={this.updateItem} fnDelete={this.deleteItem}/>
 				<TodoForm onFormSubmit={this.updateItems}/>
 			</div>
 		);
@@ -74,6 +85,9 @@ var TodoList = React.createClass({
 							<button type="button" className={classArchive} onClick={this.props.fnComplete.bind(null, i, 2)}>
 								<span className="glyphicon glyphicon-ok" aria-hidden="true"></span> Archive
 							</button>
+							<button type="button" className="btn btn-primary btn-xs" onClick={this.props.fnDelete.bind(null, i)}>
+								<span className="glyphicon glyphicon-ok" aria-hidden="true"></span> Delete
+							</button>
 						</li>
           );
         }, this)}
@@ -81,6 +95,21 @@ var TodoList = React.createClass({
     );
 	}
 });
+
+// // Filter Tasks
+// var FilterForm = React.createClass({
+// 	// initial state, no filter selected by default
+// 	getInitialState: function(){
+// 		return {filter : null} // no filter set default
+// 	},
+// 	// on change option in filter
+// 	onChange: function(){
+// 		// set state
+// 		this.setState({
+// 			filter: e.target.value
+// 		})
+// 	}
+// });
 
 // TodoForm
 var TodoForm = React.createClass({
@@ -90,6 +119,7 @@ var TodoForm = React.createClass({
 	},
 	// on submit send the item to the state and return to the initial state with focus on the field
 	handleSubmit: function(e){
+		if(typeof this.state.item === 'object' && this.state.item.text.length === 0) return false;
 		e.preventDefault();
 		this.props.onFormSubmit({ text : this.state.item, status : 0 });
 		this.setState({item: { text : '', status : 0 }});

@@ -30,9 +30,20 @@ var TodoApp = React.createClass({ displayName: "TodoApp",
 		this.state.items[pos].status = status;
 		this.setState({ items: this.state.items });
 	},
+	// delete - deletes am item from the list
+	deleteItem: function (pos) {
+		var allItems = this.state.items;
+		allItems.splice(pos, 1);
+		this.setState({ items: allItems });
+	},
+	// deleteBulk: function(arr){
+	// 	arr.forEach(function(item){
+	// 		this.deleteItem(item);
+	// 	});
+	// },
 	// render the to do list
 	render: function () {
-		return React.createElement("div", null, React.createElement(TodoHeader, null), React.createElement(TodoList, { items: this.state.items, fnComplete: this.updateItem }), React.createElement(TodoForm, { onFormSubmit: this.updateItems }));
+		return React.createElement("div", null, React.createElement(TodoHeader, null), React.createElement(TodoList, { items: this.state.items, fnComplete: this.updateItem, fnDelete: this.deleteItem }), React.createElement(TodoForm, { onFormSubmit: this.updateItems }));
 	}
 });
 
@@ -58,10 +69,25 @@ var TodoList = React.createClass({ displayName: "TodoList",
 			} else if (item.status === 2) {
 				liClass = "list-group-item hidden";
 			}
-			return React.createElement("li", { className: liClass, key: i }, item.text, React.createElement("button", { type: "button", className: classComplete, onClick: this.props.fnComplete.bind(null, i, 1) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Complete"), React.createElement("button", { type: "button", className: classArchive, onClick: this.props.fnComplete.bind(null, i, 2) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Archive"));
+			return React.createElement("li", { className: liClass, key: i }, item.text, React.createElement("button", { type: "button", className: classComplete, onClick: this.props.fnComplete.bind(null, i, 1) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Complete"), React.createElement("button", { type: "button", className: classArchive, onClick: this.props.fnComplete.bind(null, i, 2) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Archive"), React.createElement("button", { type: "button", className: "btn btn-primary btn-xs", onClick: this.props.fnDelete.bind(null, i) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Delete"));
 		}, this));
 	}
 });
+
+// // Filter Tasks
+// var FilterForm = React.createClass({
+// 	// initial state, no filter selected by default
+// 	getInitialState: function(){
+// 		return {filter : null} // no filter set default
+// 	},
+// 	// on change option in filter
+// 	onChange: function(){
+// 		// set state
+// 		this.setState({
+// 			filter: e.target.value
+// 		})
+// 	}
+// });
 
 // TodoForm
 var TodoForm = React.createClass({ displayName: "TodoForm",
@@ -71,6 +97,7 @@ var TodoForm = React.createClass({ displayName: "TodoForm",
 	},
 	// on submit send the item to the state and return to the initial state with focus on the field
 	handleSubmit: function (e) {
+		if (typeof this.state.item === "object" && this.state.item.text.length === 0) return false;
 		e.preventDefault();
 		this.props.onFormSubmit({ text: this.state.item, status: 0 });
 		this.setState({ item: { text: "", status: 0 } });
