@@ -61,16 +61,16 @@ var TodoList = React.createClass({ displayName: "TodoList",
 	render: function () {
 		return React.createElement("ul", { className: "list-group" }, this.props.items.map(function (item, i) {
 			var classComplete = "btn btn-primary btn-xs",
-			    classArchive = "btn btn-primary btn-xs hidden",
+			    classArchive = "btn btn-warning btn-xs hidden",
 			    liClass = "list-group-item",
 			    classCheckBox = "checkbox";
 			if (item.status === 1) {
 				classComplete = "btn btn-primary btn-xs hidden";
-				classArchive = "btn btn-primary btn-xs";
+				classArchive = "btn btn-warning btn-xs";
 			} else if (item.status === 2) {
 				liClass = "list-group-item hidden";
 			}
-			return React.createElement("li", { className: liClass, key: i }, item.text, React.createElement("button", { type: "button", className: classComplete, onClick: this.props.fnComplete.bind(null, i, 1) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Complete"), React.createElement("button", { type: "button", className: classArchive, onClick: this.props.fnComplete.bind(null, i, 2) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Archive"), React.createElement("button", { type: "button", className: "btn btn-primary btn-xs", onClick: this.props.fnDelete.bind(null, i) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Delete"), React.createElement("div", { className: "checkbox" }, React.createElement("label", { htmlFor: "name" }, React.createElement("input", { type: "checkbox", value: "1" }), "Priority")));
+			return React.createElement("li", { className: liClass, key: i }, item.text, React.createElement("button", { type: "button", className: classComplete, "data-toggle": "tooltip", "data-placement": "top", title: "Complete this task?", onClick: this.props.fnComplete.bind(null, i, 1) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Complete"), React.createElement("button", { type: "button", className: classArchive, "data-toggle": "tooltip", "data-placement": "top", title: "Archive this task?", onClick: this.props.fnComplete.bind(null, i, 2) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Archive"), React.createElement("button", { type: "button", className: "btn btn-danger btn-xs", "data-toggle": "tooltip", "data-placement": "top", title: "Delete this task?", onClick: this.props.fnDelete.bind(null, i) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Delete"), React.createElement("div", { className: "checkbox-inline" }, React.createElement("label", { htmlFor: "name" }, React.createElement("input", { type: "checkbox", id: "inlineCheckbox1", value: "option1" }), " 1")), React.createElement("div", { className: "checkbox-inline" }, React.createElement("label", { htmlFor: "name" }, React.createElement("input", { type: "checkbox", id: "inlineCheckbox2", value: "option2" }), " 2")), React.createElement("div", { className: "checkbox-inline" }, React.createElement("label", { htmlFor: "name" }, React.createElement("input", { type: "checkbox", id: "inlineCheckbox3", value: "option3" }), " 3")), React.createElement("div", { className: "checkbox-inline" }, React.createElement("label", { htmlFor: "name" }, React.createElement("input", { type: "checkbox", id: "inlineCheckbox4", value: "option4" }), " 4")), React.createElement("div", { className: "checkbox-inline" }, React.createElement("label", { htmlFor: "name" }, React.createElement("input", { type: "checkbox", id: "inlineCheckbox5", value: "option5" }), " 5")), React.createElement("select", { className: "dropdown", "data-toggle": "tooltip", "data-placement": "top", title: "Choose task priority." }, React.createElement("option", null, "1"), React.createElement("option", null, "2"), React.createElement("option", null, "3"), React.createElement("option", null, "4"), React.createElement("option", null, "5")));
 		}, this));
 	}
 });
@@ -113,7 +113,7 @@ var TodoForm = React.createClass({ displayName: "TodoForm",
 	},
 	// render a form with a text field and a submit button
 	render: function () {
-		return React.createElement("form", { onSubmit: this.handleSubmit }, React.createElement("div", { className: "row" }, React.createElement("div", { className: "col-xs-10" }, React.createElement("input", { type: "text", ref: "item", className: "form-control", onChange: this.onChange, value: this.state.item.text, placeholder: "Enter a new task here" })), React.createElement("div", { className: "col-xs-2" }, React.createElement("input", { type: "submit", className: "btn btn-primary", value: "Add" }))));
+		return React.createElement("form", { onSubmit: this.handleSubmit }, React.createElement("div", { className: "row" }, React.createElement("div", { className: "col-xs-10" }, React.createElement("input", { type: "text", ref: "item", className: "form-control", onChange: this.onChange, value: this.state.item.text, placeholder: "Enter a new task here" })), React.createElement("div", { className: "col-xs-2" }, React.createElement("input", { type: "submit", className: "btn btn-success btn-lg btn-block", "data-toggle": "tooltip", "data-placement": "top", title: "Click to add a task!", value: "Add" }))));
 	}
 });
 

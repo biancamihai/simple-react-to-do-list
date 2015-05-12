@@ -69,32 +69,57 @@ var TodoList = React.createClass({
 		return (
       <ul className='list-group'>
         {this.props.items.map(function(item, i) {
-        	var classComplete = 'btn btn-primary btn-xs', classArchive = 'btn btn-primary btn-xs hidden', liClass = 'list-group-item', classCheckBox = 'checkbox';
+        	var classComplete = 'btn btn-primary btn-xs', classArchive = 'btn btn-warning btn-xs hidden', liClass = 'list-group-item', classCheckBox = 'checkbox';
           if(item.status === 1) {
           	classComplete = 'btn btn-primary btn-xs hidden';
-          	classArchive = 'btn btn-primary btn-xs';
+          	classArchive = 'btn btn-warning btn-xs';
           } else if(item.status === 2) {
           	liClass = 'list-group-item hidden';
           }
           return (
             <li className={liClass} key={i}>
 							{item.text} 
-							<button type="button" className={classComplete} onClick={this.props.fnComplete.bind(null, i, 1)}>
+							<button type="button" className={classComplete} data-toggle="tooltip" data-placement="top" title="Complete this task?" onClick={this.props.fnComplete.bind(null, i, 1)}>
 								<span className="glyphicon glyphicon-ok" aria-hidden="true"></span> Complete
 							</button>
-							<button type="button" className={classArchive} onClick={this.props.fnComplete.bind(null, i, 2)}>
+							<button type="button" className={classArchive} data-toggle="tooltip" data-placement="top" title="Archive this task?" onClick={this.props.fnComplete.bind(null, i, 2)}>
 								<span className="glyphicon glyphicon-ok" aria-hidden="true"></span> Archive
 							</button>
-							<button type="button" className="btn btn-primary btn-xs" onClick={this.props.fnDelete.bind(null, i)}>
+							<button type="button" className="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="Delete this task?" onClick={this.props.fnDelete.bind(null, i)}>
 								<span className="glyphicon glyphicon-ok" aria-hidden="true"></span> Delete
 							</button>
-							<div className="checkbox">
+							<div className="checkbox-inline">
                   <label htmlFor="name">
-                  <input type="checkbox" value="1"/>Priority 
+                  <input type="checkbox" id="inlineCheckbox1" value="option1" /> 1
                   </label>
               </div>
-              
-              
+              <div className="checkbox-inline">
+                  <label htmlFor="name">
+                  <input type="checkbox" id="inlineCheckbox2" value="option2" /> 2 
+                  </label>
+              </div>
+              <div className="checkbox-inline">
+                  <label htmlFor="name">
+                  <input type="checkbox" id="inlineCheckbox3" value="option3" /> 3 
+                  </label>
+              </div>
+              <div className="checkbox-inline">
+                  <label htmlFor="name">
+                  <input type="checkbox" id="inlineCheckbox4" value="option4" /> 4
+                  </label>
+              </div>
+              <div className="checkbox-inline">
+                  <label htmlFor="name">
+                  <input type="checkbox" id="inlineCheckbox5" value="option5" /> 5
+                  </label>
+              </div>
+              <select className="dropdown" data-toggle="tooltip" data-placement="top" title="Choose task priority.">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
 						</li>
 						
           );
@@ -149,7 +174,7 @@ var TodoForm = React.createClass({
 						<input type='text' ref='item' className='form-control' onChange={this.onChange} value={this.state.item.text} placeholder="Enter a new task here"/>
 					</div>
 					<div className='col-xs-2'>
-						<input type='submit' className='btn btn-primary' value='Add'/>
+						<input type='submit' className='btn btn-success btn-lg btn-block' data-toggle="tooltip" data-placement="top" title="Click to add a task!"value='Add'/>
 					</div>
 				</div>
 			</form>
