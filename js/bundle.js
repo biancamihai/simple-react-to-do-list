@@ -62,14 +62,15 @@ var TodoList = React.createClass({ displayName: "TodoList",
 		return React.createElement("ul", { className: "list-group" }, this.props.items.map(function (item, i) {
 			var classComplete = "btn btn-primary btn-xs",
 			    classArchive = "btn btn-primary btn-xs hidden",
-			    liClass = "list-group-item";
+			    liClass = "list-group-item",
+			    classCheckBox = "checkbox";
 			if (item.status === 1) {
 				classComplete = "btn btn-primary btn-xs hidden";
 				classArchive = "btn btn-primary btn-xs";
 			} else if (item.status === 2) {
 				liClass = "list-group-item hidden";
 			}
-			return React.createElement("li", { className: liClass, key: i }, item.text, React.createElement("button", { type: "button", className: classComplete, onClick: this.props.fnComplete.bind(null, i, 1) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Complete"), React.createElement("button", { type: "button", className: classArchive, onClick: this.props.fnComplete.bind(null, i, 2) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Archive"), React.createElement("button", { type: "button", className: "btn btn-primary btn-xs", onClick: this.props.fnDelete.bind(null, i) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Delete"));
+			return React.createElement("li", { className: liClass, key: i }, item.text, React.createElement("button", { type: "button", className: classComplete, onClick: this.props.fnComplete.bind(null, i, 1) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Complete"), React.createElement("button", { type: "button", className: classArchive, onClick: this.props.fnComplete.bind(null, i, 2) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Archive"), React.createElement("button", { type: "button", className: "btn btn-primary btn-xs", onClick: this.props.fnDelete.bind(null, i) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Delete"), React.createElement("div", { className: "checkbox" }, React.createElement("label", { htmlFor: "name" }, React.createElement("input", { type: "checkbox", value: "1" }), "Priority")));
 		}, this));
 	}
 });

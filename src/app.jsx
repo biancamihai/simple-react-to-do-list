@@ -69,7 +69,7 @@ var TodoList = React.createClass({
 		return (
       <ul className='list-group'>
         {this.props.items.map(function(item, i) {
-        	var classComplete = 'btn btn-primary btn-xs', classArchive = 'btn btn-primary btn-xs hidden', liClass = 'list-group-item';
+        	var classComplete = 'btn btn-primary btn-xs', classArchive = 'btn btn-primary btn-xs hidden', liClass = 'list-group-item', classCheckBox = 'checkbox';
           if(item.status === 1) {
           	classComplete = 'btn btn-primary btn-xs hidden';
           	classArchive = 'btn btn-primary btn-xs';
@@ -88,7 +88,15 @@ var TodoList = React.createClass({
 							<button type="button" className="btn btn-primary btn-xs" onClick={this.props.fnDelete.bind(null, i)}>
 								<span className="glyphicon glyphicon-ok" aria-hidden="true"></span> Delete
 							</button>
+							<div className="checkbox">
+                  <label htmlFor="name">
+                  <input type="checkbox" value="1"/>Priority 
+                  </label>
+              </div>
+              
+              
 						</li>
+						
           );
         }, this)}
       </ul>
