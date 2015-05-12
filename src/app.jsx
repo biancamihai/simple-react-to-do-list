@@ -88,31 +88,7 @@ var TodoList = React.createClass({
 							<button type="button" className="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="Delete this task?" onClick={this.props.fnDelete.bind(null, i)}>
 								<span className="glyphicon glyphicon-ok" aria-hidden="true"></span> Delete
 							</button>
-							<div className="checkbox-inline">
-                  <label htmlFor="name">
-                  <input type="checkbox" id="inlineCheckbox1" value="option1" /> 1
-                  </label>
-              </div>
-              <div className="checkbox-inline">
-                  <label htmlFor="name">
-                  <input type="checkbox" id="inlineCheckbox2" value="option2" /> 2 
-                  </label>
-              </div>
-              <div className="checkbox-inline">
-                  <label htmlFor="name">
-                  <input type="checkbox" id="inlineCheckbox3" value="option3" /> 3 
-                  </label>
-              </div>
-              <div className="checkbox-inline">
-                  <label htmlFor="name">
-                  <input type="checkbox" id="inlineCheckbox4" value="option4" /> 4
-                  </label>
-              </div>
-              <div className="checkbox-inline">
-                  <label htmlFor="name">
-                  <input type="checkbox" id="inlineCheckbox5" value="option5" /> 5
-                  </label>
-              </div>
+							
               <select className="dropdown" data-toggle="tooltip" data-placement="top" title="Choose task priority.">
                 <option>1</option>
                 <option>2</option>
