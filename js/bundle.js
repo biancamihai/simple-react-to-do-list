@@ -63,14 +63,15 @@ var TodoList = React.createClass({ displayName: "TodoList",
 			var classComplete = "btn btn-primary btn-xs",
 			    classArchive = "btn btn-warning btn-xs hidden",
 			    liClass = "list-group-item",
-			    classCheckBox = "checkbox";
+			    classFavorite = "btn btn-info btn-xs",
+			    classDropDown = "dropdown";
 			if (item.status === 1) {
 				classComplete = "btn btn-primary btn-xs hidden";
 				classArchive = "btn btn-warning btn-xs";
 			} else if (item.status === 2) {
 				liClass = "list-group-item hidden";
 			}
-			return React.createElement("li", { className: liClass, key: i }, item.text, React.createElement("button", { type: "button", className: classComplete, "data-toggle": "tooltip", "data-placement": "top", title: "Complete this task?", onClick: this.props.fnComplete.bind(null, i, 1) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Complete"), React.createElement("button", { type: "button", className: classArchive, "data-toggle": "tooltip", "data-placement": "top", title: "Archive this task?", onClick: this.props.fnComplete.bind(null, i, 2) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Archive"), React.createElement("button", { type: "button", className: "btn btn-danger btn-xs", "data-toggle": "tooltip", "data-placement": "top", title: "Delete this task?", onClick: this.props.fnDelete.bind(null, i) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Delete"), React.createElement("select", { className: "dropdown", "data-toggle": "tooltip", "data-placement": "top", title: "Choose task priority." }, React.createElement("option", null, "1"), React.createElement("option", null, "2"), React.createElement("option", null, "3"), React.createElement("option", null, "4"), React.createElement("option", null, "5")));
+			return React.createElement("li", { className: liClass, key: i }, item.text, React.createElement("button", { type: "button", className: classComplete, "data-toggle": "tooltip", "data-placement": "top", title: "Complete this task?", onClick: this.props.fnComplete.bind(null, i, 1) }, React.createElement("span", { className: "glyphicon glyphicon-ok", "aria-hidden": "true" }), " Complete"), React.createElement("button", { type: "button", className: classArchive, "data-toggle": "tooltip", "data-placement": "top", title: "Archive this task?", onClick: this.props.fnComplete.bind(null, i, 2) }, React.createElement("span", { className: "glyphicon glyphicon-folder-open", "aria-hidden": "true" }), " Archive"), React.createElement("button", { type: "button", className: "btn btn-danger btn-xs", "data-toggle": "tooltip", "data-placement": "top", title: "Delete this task?", onClick: this.props.fnDelete.bind(null, i) }, React.createElement("span", { className: "glyphicon glyphicon-remove", "aria-hidden": "true" }), " Delete"), React.createElement("button", { type: "button", className: classFavorite }, React.createElement("span", { className: "glyphicon glyphicon-star", "aria-hidden": "true" }), " Favorite"), React.createElement("select", { className: "dropdown", "data-toggle": "tooltip", "data-placement": "top", title: "Choose task priority." }, React.createElement("option", null, "1"), React.createElement("option", null, "2"), React.createElement("option", null, "3"), React.createElement("option", null, "4"), React.createElement("option", null, "5")));
 		}, this));
 	}
 });

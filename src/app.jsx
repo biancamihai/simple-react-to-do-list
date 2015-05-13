@@ -69,7 +69,7 @@ var TodoList = React.createClass({
 		return (
       <ul className='list-group'>
         {this.props.items.map(function(item, i) {
-        	var classComplete = 'btn btn-primary btn-xs', classArchive = 'btn btn-warning btn-xs hidden', liClass = 'list-group-item', classCheckBox = 'checkbox';
+        	var classComplete = 'btn btn-primary btn-xs', classArchive = 'btn btn-warning btn-xs hidden', liClass = 'list-group-item', classFavorite = 'btn btn-info btn-xs', classDropDown = 'dropdown';
           if(item.status === 1) {
           	classComplete = 'btn btn-primary btn-xs hidden';
           	classArchive = 'btn btn-warning btn-xs';
@@ -83,12 +83,15 @@ var TodoList = React.createClass({
 								<span className="glyphicon glyphicon-ok" aria-hidden="true"></span> Complete
 							</button>
 							<button type="button" className={classArchive} data-toggle="tooltip" data-placement="top" title="Archive this task?" onClick={this.props.fnComplete.bind(null, i, 2)}>
-								<span className="glyphicon glyphicon-ok" aria-hidden="true"></span> Archive
+								<span className="glyphicon glyphicon-folder-open" aria-hidden="true"></span> Archive
 							</button>
 							<button type="button" className="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" title="Delete this task?" onClick={this.props.fnDelete.bind(null, i)}>
-								<span className="glyphicon glyphicon-ok" aria-hidden="true"></span> Delete
+								<span className="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
 							</button>
-							
+							<button type="button" className={classFavorite}>
+                <span className="glyphicon glyphicon-star" aria-hidden="true"></span> Favorite
+              </button>
+
               <select className="dropdown" data-toggle="tooltip" data-placement="top" title="Choose task priority.">
                 <option>1</option>
                 <option>2</option>
@@ -150,7 +153,9 @@ var TodoForm = React.createClass({
 						<input type='text' ref='item' className='form-control' onChange={this.onChange} value={this.state.item.text} placeholder="Enter a new task here"/>
 					</div>
 					<div className='col-xs-2'>
-						<input type='submit' className='btn btn-success btn-lg btn-block' data-toggle="tooltip" data-placement="top" title="Click to add a task!"value='Add'/>
+
+						<input type='submit' className='btn btn-success btn-lg btn-block'  data-toggle="tooltip" data-placement="top" title="Click to add a task!" value='Add' />
+					
 					</div>
 				</div>
 			</form>
